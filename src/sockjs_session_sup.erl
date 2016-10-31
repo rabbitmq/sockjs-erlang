@@ -12,7 +12,7 @@ start_link() ->
      supervisor:start_link({local, ?MODULE}, ?MODULE, []).
 
 init([]) ->
-    {ok, {{simple_one_for_one, 10, 10},
+    {ok, {{simple_one_for_one, 10000, 1},
           [{undefined, {sockjs_session, start_link, []},
             transient, 5000, worker, [sockjs_session]}]}}.
 

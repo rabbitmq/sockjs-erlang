@@ -208,7 +208,7 @@ handle({match, {Type, Action, _Server, Session, Filters}}, Service, Req) ->
 default_logger(_Service, Req, _Type) ->
     {LongPath, Req1} = sockjs_http:path(Req),
     {Method, Req2}   = sockjs_http:method(Req1),
-    io:format("~s ~s~n", [Method, LongPath]),
+%    io:format("~s ~s~n", [Method, LongPath]),
     Req2.
 
 -spec extract_info(req()) -> {info(), req()}.
