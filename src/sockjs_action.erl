@@ -91,7 +91,7 @@ xhr_streaming(Req, Headers, Service = #service{response_limit = ResponseLimit},
               Session) ->
     Req1 = chunk_start(Req, Headers),
     %% IE requires 2KB prefix:
-    %% http://blogs.msdn.com/b/ieinternals/archive/2010/04/06/comet-streaming-in-internet-explorer-with-xmlhttprequest-and-xdomainrequest.aspx
+    %% https://blogs.msdn.com/b/ieinternals/archive/2010/04/06/comet-streaming-in-internet-explorer-with-xmlhttprequest-and-xdomainrequest.aspx
     Req2 = chunk(Req1, list_to_binary(string:copies("h", 2048)),
                  fun fmt_xhr/1),
     reply_loop(Req2, Session, ResponseLimit, fun fmt_xhr/1, Service).
@@ -112,7 +112,7 @@ htmlfile(Req, Headers, Service = #service{response_limit = ResponseLimit},
                 IFrame = iolist_to_binary(io_lib:format(?IFRAME_HTMLFILE, [CB])),
                 %% Safari needs at least 1024 bytes to parse the
                 %% website. Relevant:
-                %%   http://code.google.com/p/browsersec/wiki/Part2#Survey_of_content_sniffing_behaviors
+                %%   https://code.google.com/p/browsersec/wiki/Part2#Survey_of_content_sniffing_behaviors
                 Padding = string:copies(" ", 1024 - size(IFrame)),
                 Req3 = chunk(Req2, [IFrame, Padding, <<"\r\n\r\n">>]),
                 reply_loop(Req3, SessionId, ResponseLimit, fun fmt_htmlfile/1, Service)
