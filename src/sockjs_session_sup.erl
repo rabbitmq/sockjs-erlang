@@ -2,19 +2,24 @@
 
 -behaviour(supervisor).
 
--export([start_link/0, start_child/3]).
+-export([start_child/3, start_link/0]).
+
 -export([init/1]).
 
 %% --------------------------------------------------------------------------
 
--spec start_link() -> ignore | {'ok', pid()} | {'error', any()}.
+-spec start_link() -> ignore | {ok, pid()} |
+		      {error, any()}.
+
 start_link() ->
-     supervisor:start_link({local, ?MODULE}, ?MODULE, []).
+    supervisor:start_link({local, ?MODULE}, ?MODULE, []).
 
 init([]) ->
-    {ok, {{simple_one_for_one, 10000, 1},
-          [{undefined, {sockjs_session, start_link, []},
-            transient, 5000, worker, [sockjs_session]}]}}.
+    {ok,
+     {{simple_one_for_one, 10000, 1},
+      [{undefined, {sockjs_session, start_link, []},
+	transient, 5000, worker, [sockjs_session]}]}}.
 
 start_child(SessionId, Service, Info) ->
-   supervisor:start_child(?MODULE, [SessionId, Service, Info]).
+    supervisor:start_child(?MODULE,
+			   [SessionId, Service, Info]).

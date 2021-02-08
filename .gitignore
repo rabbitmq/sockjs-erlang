@@ -7,3 +7,5 @@ priv/www
 .dialyzer_sockjs.plt
 .dialyzer_generic.plt
 /.project
+_build/
+*.erl.bak
